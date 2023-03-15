@@ -1,6 +1,6 @@
 #
 #
-#  BLIS    
+#  BLIS
 #  An object-based framework for developing high-performance BLAS-like
 #  libraries.
 #
@@ -108,6 +108,10 @@ CFLAGS         += -I$(TEST_SRC_PATH)
 # Binary executable name.
 TESTSUITE_BIN  := test_libblis.x
 
+# If we are using the RISC-V spike emulator, link test binary with -static
+ifneq (,$(findstring spike,$(TESTSUITE_WRAPPER)))
+    LDFLAGS += -static
+endif
 
 
 #
@@ -197,4 +201,3 @@ endif
 
 clean:
 	- $(RM_F) $(TEST_OBJS) $(TESTSUITE_BIN)
-
